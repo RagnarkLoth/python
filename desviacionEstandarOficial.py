@@ -104,6 +104,8 @@ while True:
     elif resultado == 1:
         llenarLista()
         if mostrarDatos(listaDatos, nombresListas, promedio(listaDatos, len(listaDatos)),desviacion(promedio(listaDatos, len(listaDatos)), listaDatos)) == "si":
+            listaDatos = []
+            nombresListas = []
             pass
         else:
             despedida()
