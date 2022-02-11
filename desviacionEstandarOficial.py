@@ -1,14 +1,4 @@
-"""
-#1.El usuaurio debe ingresar la cantidad de listas en el programa
-#2.El usuario debera ingrasar la cantidad de datos que tendra cada lista
-#3.El usuario debera ingresar en cada lista los datos
-4.El programa debera verificar que los datos ingresados deben ser numeros reales.
-5.La aplicacion debera permitir el borrado de pantalla.
-6.El programa debe tener un menu, entre las opciones debe estar la opcion de terminar el programa.
-#7.El programa debe saber la desviacion, esta sera utilizada para organizar de menor a mayor
-#8.El programa debe sacar el promedio antes de la desviacion
-
-"""
+import os 
 
 listaDatos = []
 nombresListas = []
@@ -74,16 +64,49 @@ def mostrarDatos(listaDatos, nombreDatos, promedio, desviacion):
     print("============================================================")
     print("Resultados:")
     for indice in range(0, len(listaDatos)):
-        print("Lista " + str(nombreDatos[indice]) + " presenta una media de " + str(promedio[indice]) + " y una desviacion con respecto a la media de " + str(desviacion[indice]))
+        print("Lista " + str(nombreDatos[desviacion.index(sorted(desviacion)[indice])]) + " presenta una media de " + str(promedio[desviacion.index(sorted(desviacion)[indice])]) + " y una desviacion con respecto a la media de " + str(desviacion[desviacion.index(sorted(desviacion)[indice])]))
         print("Esto es producto de los siguientes datos: ")
-        for datos in listaDatos[indice]:
+        for datos in listaDatos[desviacion.index(sorted(desviacion)[indice])]:
             print(datos, end=", ")
+        print(" ") 
+
+    pregunta = input("¿Quieres continuar Sí/No?")
+    return pregunta.lower()
 
 def informacion():
     print("Programa para clasificar listas de datos mediante desviaciones con respecto a la media, ingrese los siguientes datos:")
     print("==========================================================")
+    print("OPCIONES: ")
+    print("NUMERO 1: Ingresar al sistema")
+    print("NUMERO 2: Limpiar pantalla")
+    print("NUMERO 3: Salir del sistema")
+    opcion = int(input("Por favor, escoge solo el numero: "))
 
-informacion()
-llenarLista()
-mostrarDatos(listaDatos, nombresListas, promedio(listaDatos, len(listaDatos)),desviacion(promedio(listaDatos, len(listaDatos)), listaDatos))
+    return opcion
+
+def limpiarConsola():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+
+def despedida():
+    print("Gracias por utilizarme, vuelva pronto. :)")
+
+
+while True:
+    resultado = informacion()
+    if resultado == 3:
+        despedida()
+        break
+    elif resultado == 2:
+        limpiarConsola()
+    elif resultado == 1:
+        llenarLista()
+        if mostrarDatos(listaDatos, nombresListas, promedio(listaDatos, len(listaDatos)),desviacion(promedio(listaDatos, len(listaDatos)), listaDatos)) == "si":
+            pass
+        else:
+            despedida()
+            break
+
 
